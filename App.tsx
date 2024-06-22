@@ -1,11 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { Chamado } from './src/screens/chamado/chamado';
+import { Called } from './src/screens/called/called';
 
 export default function App() {
   return (
     <>
-      <Chamado/>
+      <Called />
 
       <StatusBar style="auto" />
     </>
