@@ -1,11 +1,26 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { styles } from './calledStyles';
+import { AntDesign } from '@expo/vector-icons';
 
 export function Called() {
   return (
     <View style={styles.container}>
-        <Text>Testando</Text>
+      <View style={styles.ImageContainer}> 
+        <AntDesign 
+          name='customerservice'
+          size={92}
+        />
+          
+        
+      </View>
+
+      <TouchableOpacity 
+        style={styles.button}
+      >
+        <Text style={styles.text}>SOLICITAR SERVIÇO</Text>
+      </TouchableOpacity>
+
     </View>
   );
 }
