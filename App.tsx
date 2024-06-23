@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { Called } from './src/screens/called/called';
+import { Main } from './src/main';
 
 export default function App() {
   return (
     <>
-      <Called />
+      <Main />
 
       <StatusBar style="auto" />
     </>
