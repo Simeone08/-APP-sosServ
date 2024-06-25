@@ -17,11 +17,14 @@ export function Main() {
     }
 
     function handleClean(){
+        setAdress('')
+        setContact('')
+        setName('')
         setText('')
     }
 
     function handleEmail(){
-        console.log('email enviado')
+        console.log('Email enviado.')
     }
 
   return (
@@ -71,34 +74,34 @@ export function Main() {
                     <Text>Nome:</Text>
                     <TextInput 
                         style={styles.input}
-                        onChangeText={setName}
+                        onChangeText={(nome) => setName(nome)}
                         value={name}
                     />
                     <Text>Endereço:</Text>
                     <TextInput 
                         style={styles.input}
-                        onChangeText={setAdress}
+                        onChangeText={(endereco) => setAdress(endereco)}
                         value={adress}
                     />
                     <Text>Contato:</Text>
                     <TextInput 
                         style={styles.input}
-                        onChangeText={setContact}
+                        onChangeText={(numero) => setContact(numero)}
                         value={contact}
                         keyboardType='number-pad'
                     />
                     <Text>Descrição de serviço:</Text>
                     <TextInput 
                         style={styles.inputGreat}
-                        onChangeText={setText}
+                        onChangeText={(valor) => setText(valor)}
                         value={text}
                     />
 
                     <Pressable 
                         style={styles.formButton}
-                        onPressIn={handleEmail}
+                        onPressIn={handleClean}
                         onPress={handleCalled}
-                        onPressOut={handleClean}
+                        onPressOut={handleEmail}
                     >
                         <Text style={styles.text}>ENVIAR</Text>
                     </Pressable>
