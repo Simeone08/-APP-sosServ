@@ -1,35 +1,52 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import { TouchableOpacity, View, Text, TextInput, Pressable } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 import { styles } from './styles';
 
 
-export function Main() {
-    const [called, setCalled] = useState(false);
-    const [name, setName] = useState('');
-    const [adress, setAdress] = useState('');
-    const [contact, setContact] = useState('');
-    const [text, setText] = useState('');
+const reducer = (state: any, action: any) => {
+    switch (action.type){
+        case 'solicitar':
+            return { called: !state.called}
+        case 'submit':
+            return { 
+                name: action.name = '',
+                address: action.address = '',
+                contact: action.contact = '',
+                desc: action.desc = '',
+                called: !action.called
+            }
+        default:
+            return state
+    }
+}
 
-    function handleCalled(){
-        setCalled(!called)
+
+export function Main() {
+    const [state, dispatch] = useReducer(reducer, {
+        name: '',
+        address: '',
+        contact: '',
+        desc: '',
+        called: false
+    })
+
+    function handleSolicitar(){
+        dispatch({ type: 'solicitar' })
     }
 
-    function handleClean(){
-        setAdress('')
-        setContact('')
-        setName('')
-        setText('')
+    function handleClick(){
+        dispatch({ type: 'submit', state })
     }
 
     function handleEmail(){
-        console.log('Email enviado.')
+        console.log('email enviado.')
     }
 
   return (
     <>
-        {called === true && (
+        {state.called === true && (
             <>
                 <View style={styles.container}>
 
@@ -42,7 +59,7 @@ export function Main() {
                 
                     <TouchableOpacity 
                         style={styles.button}
-                        onPress={handleCalled}
+                        onPress={handleSolicitar}
                     >
                         <Text style={styles.text}>SOLICITAR SERVIÇO</Text>
                     </TouchableOpacity>    
@@ -51,11 +68,11 @@ export function Main() {
             </>
         )}
 
-        {called === false &&(
+        {state.called === false &&(
             <>
                 <View style={styles.containerFormButton}>
                     <TouchableOpacity 
-                        onPress={handleCalled}
+                        onPress={handleSolicitar}
                         style={{marginTop: 50, marginLeft: 20,}}
                     >
                         <AntDesign 
@@ -74,34 +91,25 @@ export function Main() {
                     <Text>Nome:</Text>
                     <TextInput 
                         style={styles.input}
-                        onChangeText={(nome) => setName(nome)}
-                        value={name}
                     />
                     <Text>Endereço:</Text>
                     <TextInput 
                         style={styles.input}
-                        onChangeText={(endereco) => setAdress(endereco)}
-                        value={adress}
                     />
                     <Text>Contato:</Text>
                     <TextInput 
                         style={styles.input}
-                        onChangeText={(numero) => setContact(numero)}
-                        value={contact}
                         keyboardType='number-pad'
                     />
                     <Text>Descrição de serviço:</Text>
                     <TextInput 
                         style={styles.inputGreat}
-                        onChangeText={(valor) => setText(valor)}
-                        value={text}
                     />
 
                     <Pressable 
                         style={styles.formButton}
-                        onPressIn={handleClean}
-                        onPress={handleCalled}
-                        onPressOut={handleEmail}
+                        onPress={handleClick}
+                        onPressIn={handleEmail}
                     >
                         <Text style={styles.text}>ENVIAR</Text>
                     </Pressable>
